@@ -28,6 +28,12 @@ else
   log_info "shellcheck: SKIP (not installed; CI may provide it)"
 fi
 
+if command -v node >/dev/null 2>&1; then
+  node "$ROOT/scripts/orchestrator.mjs" self-test
+else
+  log_info "orchestrator self-test: SKIP (Pi's Node runtime unavailable)"
+fi
+
 "$ROOT/tests/test-scripts.sh"
 "$ROOT/scripts/run-task.sh" verify
 log_info "all configured verification passed"

@@ -2,20 +2,22 @@
 
 ## Phase 0 — Repository baseline and API research
 
-- [ ] Inspect the installed Pi version, project-local package API, subagent dispatch API, and sandbox/tool permission behavior.
-- [ ] Record findings in `.trellis/research/PRD-002-pi-runtime-baseline.md`.
-- [ ] Create a minimal no-op orchestrator smoke fixture that can read `AGENTS.md` and a PRD without editing files.
-- [ ] Confirm the selected extension/runtime boundary and its supported JSONL or RPC surface.
+- [x] Confirm all Pi execution, state, logs, and artifacts remain inside the local clone.
+- [x] Inspect the installed Pi version, project-local package API, subagent dispatch API, and sandbox/tool permission behavior.
+- [x] Record findings in `.trellis/research/PRD-002-pi-runtime-baseline.md`.
+- [x] Create a minimal no-op orchestrator smoke fixture that can read `AGENTS.md` and a PRD without editing files.
+- [x] Confirm the selected extension/runtime boundary and its supported JSONL or RPC surface.
 
 Rollback point: no existing workflow files are changed until the no-op smoke fixture passes.
 
 ## Phase 1 — State, events, and approvals
 
-- [ ] Add versioned state/event schemas and deterministic reducer.
-- [ ] Add event writer with sequence, atomic append, redaction, and artifact paths.
-- [ ] Add state restore/replay and duplicate-event tests.
-- [ ] Add approval controller for `prd_scope`, `risk`, `final_diff`, `merge`, and `deploy` gates.
-- [ ] Add single-writer lock and stale-lock recovery policy.
+- [x] Add versioned state/event schemas and deterministic sequence validation.
+- [x] Add event writer with sequence, locked append, redaction, and artifact paths.
+- [x] Add state restore/replay and smoke coverage for duplicate-safe initialization.
+- [x] Add approval controller for `prd_scope`, `risk`, `final_diff`, `merge`, and `deploy` gates.
+- [x] Add single-writer lock.
+- [ ] Add stale-lock recovery policy.
 
 Validation: unit tests for transitions, replay, gate expiry, concurrent reader/writer behavior, and redaction.
 

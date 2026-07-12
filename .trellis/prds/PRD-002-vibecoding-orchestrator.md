@@ -4,7 +4,7 @@
 |---|---|
 | ID | PRD-002 |
 | Priority | P0 |
-| Status | Ready |
+| Status | In Progress |
 | Branch | `prd/PRD-002-vibecoding-orchestrator` |
 | Dependencies | PRD-001 cross-language framework foundation |
 | Merge target | `main` |
@@ -100,6 +100,8 @@ Pi 應自動：
 └── artifacts/
 ```
 
+所有 Pi 執行、session state、Git worktree、logs 與 artifacts 都必須存在於使用者本機 clone。本 PRD 的執行範圍限於目前 clone；GitHub PR/CI 僅是本機完成後的交付邊界。
+
 ### 5.3 Phase orchestration
 
 最少支援以下 phase：
@@ -165,7 +167,7 @@ Gate 必須是持久化狀態，不可只存在對話記憶。至少包含：
 
 - Spec scope approval。
 - PRD acceptance criteria approval。
-- 高風險命令、外部網路、migration 或 secrets boundary approval。
+- 高風險命令、不可逆操作、migration 或 secrets boundary approval。
 - 最終 diff/evidence review approval。
 - Merge approval。
 
@@ -173,7 +175,7 @@ Gate 必須是持久化狀態，不可只存在對話記憶。至少包含：
 
 ### Confirmed approval policy
 
-Pi may automatically run repository discovery, planning, tests, diagnostics, and commands inside the approved repository sandbox. Pi must pause for Spec/PRD scope approval, high-risk external or destructive actions, migrations, secrets-boundary changes, final diff/evidence approval, and merge/deploy approval.
+Pi may automatically run repository discovery, planning, tests, diagnostics, and commands inside the approved local repository sandbox. Pi must pause for Spec/PRD scope approval, high-risk or destructive actions, migrations, secrets-boundary changes, final diff/evidence approval, and merge/deploy approval.
 
 ## 7. Non-goals
 
@@ -227,7 +229,7 @@ Pi may automatically run repository discovery, planning, tests, diagnostics, and
 
 - forbidden path and secret pattern blocking。
 - shell injection and untrusted PRD text handling。
-- network allowlist and approval requirement。
+- tool allowlist and approval requirement。
 - no destructive Git command in orchestrator scripts。
 
 ### End-to-end
@@ -252,20 +254,20 @@ At least one fixture each for Python, Web, Kotlin, C, and Qt/C++ contract discov
 | AC | Status | Implementation | Evidence |
 |---|---|---|---|
 | AC-001 | Pending | | |
-| AC-002 | Pending | | |
+| AC-002 | Partial | `scripts/orchestrator.mjs` approval gates | `node scripts/orchestrator.mjs self-test` verifies scope gate pause/resume. |
 | AC-003 | Pending | | |
 | AC-004 | Pending | | |
 | AC-005 | Pending | | |
 | AC-006 | Pending | | |
-| AC-007 | Pending | | |
+| AC-007 | Partial | `state.json`, `events.jsonl`, tool artifact writer | Self-test verifies sequence, approval, lock, tool, failure, and transition events. |
 | AC-008 | Pending | | |
 | AC-009 | Pending | | |
 | AC-010 | Pending | | |
-| AC-011 | Pending | | |
-| AC-012 | Pending | | |
-| AC-013 | Pending | | |
-| AC-014 | Pending | | |
+| AC-011 | Partial | `orchestrator.mjs state/resume/replay` | State and event replay commands are implemented; crash-safe scheduler resume remains a later phase. |
+| AC-012 | Partial | `.pi/sandbox.json`, `recordToolOutput()` | Denied credential paths and redacted tool artifacts are covered by self-test. |
+| AC-013 | Partial | `scripts/verify.sh`, `scripts/orchestrator.mjs self-test` | `mise run doctor/setup/verify` passes with no enabled Profile. |
+| AC-014 | Partial | `scripts/verify.sh`, existing `.github/workflows/verify.yml` | Local verify and CI use the same `mise run verify` entry; full orchestrator CI gate remains later. |
 
-## 12. Planning status
+## 12. Implementation status
 
-Approval policy is confirmed by the user. The next step is technical design and implementation planning; no Pi engine code is included in this PRD draft.
+Approval policy is confirmed by the user. Phase 0 baseline work and the first Phase 1 local state/approval slice are implemented on the PRD branch. The Pi RPC scheduler, agent registry, failure loop, evidence writer, delivery integration, and complete end-to-end fixtures remain in progress.

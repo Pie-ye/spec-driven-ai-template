@@ -12,6 +12,7 @@ auth.json
 .pi/*.local.*
 .trellis/workspace/*/agent-log.jsonl
 !.trellis/workspace/*/.gitkeep
+.trellis/runs/
 .mise.local.toml
 mise.local.lock
 .DS_Store

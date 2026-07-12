@@ -18,6 +18,8 @@ Build a project-local Pi orchestration layer that turns a natural-language reque
 
 The orchestrator may create or update records, but it must not maintain a parallel roadmap, rewrite acceptance criteria without approval, or replace native build systems.
 
+All execution is local to the user's clone. Session state, worktrees, logs, and artifacts remain inside that clone. GitHub is used only for PR/CI delivery after local verification.
+
 ## 3. Runtime shape
 
 The first implementation should be a Pi project-local orchestrator skill plus a small runtime adapter. The adapter may be a Pi extension/runtime package when Pi APIs are required; its public boundary must remain language-neutral and communicate through structured JSONL events. Do not add a root application language Profile solely for the orchestrator runtime; Pi's own extension runtime or an explicitly pinned project-local package owns that dependency.
@@ -140,7 +142,7 @@ Tool adapters expose structured calls such as `repo.read`, `git.diff`, `mise.run
 
 `mise.run` accepts only tasks from the root contract or explicitly declared module tasks. The orchestrator never constructs `pnpm test`, `uv run pytest`, `./gradlew test`, or CMake commands from model guesses; it invokes `mise run <task>` and lets the selected Profile/native adapter decide.
 
-External GitHub actions, migrations, destructive commands, network access outside the allowlist, and secret-boundary operations require a gate token issued by the approval controller.
+GitHub PR/CI actions, migrations, destructive commands, and secret-boundary operations require a gate token issued by the approval controller; filesystem and tool execution remains inside the current clone.
 
 ## 9. Approval controller
 
@@ -172,7 +174,7 @@ The orchestrator must never mark a failure solved from model text alone; a passi
 - Redact known secret patterns and environment values from event/output artifacts.
 - Deny host credential paths and repository-external writes by default.
 - Use a single-writer lock and worktree isolation for code changes.
-- Treat GitHub PR creation as external state and require the deliver gate.
+- Treat GitHub PR creation as delivery state and require the deliver gate.
 - Never persist provider tokens, full environment dumps, or unredacted command output.
 
 ## 12. Compatibility and migration
