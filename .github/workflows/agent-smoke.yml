@@ -1,0 +1,32 @@
+name: agent-smoke
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pi-headless-smoke:
+    if: ${{ secrets.OPENAI_API_KEY != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      PI_TELEMETRY: '0'
+      PI_SKIP_VERSION_CHECK: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Pi
+        run: npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+      - name: Read-only policy smoke test
+        run: |
+          pi -p 'Read AGENTS.md and PRD_EXECUTION.md. Summarize the branch, PRD, verification, and review rules in 10 bullets. Do not edit files.' \
+            --provider openai --model 'openai/gpt-5' > /tmp/pi-smoke.txt
+          test -s /tmp/pi-smoke.txt
+          grep -E 'PRD|branch|verify|review' /tmp/pi-smoke.txt
+

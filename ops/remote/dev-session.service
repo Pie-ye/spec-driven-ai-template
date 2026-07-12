@@ -1,0 +1,13 @@
+[Unit]
+Description=Persistent tmux development session for this repository
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/code/my-project
+ExecStart=/usr/bin/tmux new-session -A -s my-project
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+

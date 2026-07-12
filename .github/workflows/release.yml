@@ -1,0 +1,27 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to validate
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  release-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Validate tag exists
+        env:
+          TAG: ${{ inputs.tag }}
+        run: git rev-parse "refs/tags/${TAG}"
+      - name: Verify
+        run: ./.trellis/scripts/verify.sh
+

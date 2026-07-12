@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "npm:pi-subagents@0.34.0",
+    "npm:pi-readseek@0.5.1",
+    "npm:@gaodes/pi-lens@3.8.45",
+    "npm:pi-web-access@0.13.0",
+    "npm:pi-landstrip@0.16.29"
+  ],
+  "skills": ["./skills"],
+  "prompts": ["./prompts"],
+  "extensions": [],
+  "enableSkillCommands": true,
+  "defaultProjectTrust": "ask"
+}
+

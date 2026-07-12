@@ -1,0 +1,29 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+auth.json
+
+# Agent and local machine state
+.pi/cache/
+.pi/sessions/
+.pi/*.local.*
+.trellis/workspace/*/agent-log.jsonl
+!.trellis/workspace/*/.gitkeep
+.DS_Store
+.idea/
+.vscode/
+
+# Language/tool output
+node_modules/
+dist/
+build/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+coverage/
+*.log
+

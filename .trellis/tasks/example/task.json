@@ -1,0 +1,9 @@
+{
+  "id": "PRD-001-example",
+  "title": "Example task",
+  "status": "draft",
+  "branch": "prd/PRD-001-example",
+  "owner": "",
+  "prd": "prd.md"
+}
+

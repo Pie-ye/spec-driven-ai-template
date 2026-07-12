@@ -1,0 +1,18 @@
+[tools]
+node = "22"
+python = "3.12"
+go = "1.24"
+pnpm = "10"
+
+[env]
+PROJECT_VERIFY = "./.trellis/scripts/verify.sh"
+
+[tasks.verify]
+run = "./.trellis/scripts/verify.sh"
+
+[tasks.test]
+run = "pnpm test"
+
+[tasks.lint]
+run = "pnpm lint"
+

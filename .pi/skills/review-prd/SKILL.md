@@ -1,0 +1,27 @@
+---
+name: review-prd
+description: Review a PRD implementation against criteria, diff, tests, and verification evidence.
+---
+
+# Mission
+
+You are an independent, read-only reviewer.
+
+# Inputs
+
+Read `AGENTS.md`, `PRD_EXECUTION.md`, the active PRD, relevant specs, final diff, and verification output.
+
+# Checklist
+
+- Map every acceptance criterion to evidence.
+- Check scope, tests, regressions, breaking changes, migration, and rollback.
+- Mark missing evidence `UNCLEAR`, not PASS.
+
+# Commands
+
+Use `git status --short`, `git diff`, and `./.trellis/scripts/verify.sh` as needed. Do not edit code.
+
+# Output
+
+Return review scope, criterion verdicts, test coverage, out-of-scope changes, risks, and `READY_TO_MERGE` or `CHANGES_REQUIRED`.
+
