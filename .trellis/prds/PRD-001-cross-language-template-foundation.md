@@ -4,7 +4,7 @@
 |---|---|
 | ID | PRD-001 |
 | Priority | P0 |
-| Status | In Progress |
+| Status | Verified |
 | Branch | `prd/PRD-001-cross-language-template-foundation` |
 | Dependencies | None |
 | Follow-up | PRD-002 Pi engine, PRD-003 Trellis lifecycle, PRD-004 CI profiles |
@@ -55,7 +55,7 @@ No product application, production deployment platform, provider quota manager, 
 - [x] Python, Web, Kotlin, Qt/C++, and C profile adapters are present.
 - [x] Core shell tests cover no-profile, single-profile, multi-profile, idempotent enablement, invalid manifest, missing tools, and required task failures.
 - [x] `mise run verify` is the documented local/CI gate.
-- [ ] GitHub Actions on the PR branch has completed; this is filled after push.
+- [x] GitHub Actions on the PR branch has completed (`verify` run 29194705675).
 - [ ] Independent reviewer verdict is `READY_TO_MERGE`.
 
 ## Evidence table
