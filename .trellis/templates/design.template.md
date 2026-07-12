@@ -15,4 +15,3 @@ Record rejected approaches and why.
 ## Rollout and rollback
 
 Describe migration, feature flags, operational checks, and rollback.
-

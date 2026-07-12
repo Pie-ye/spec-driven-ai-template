@@ -11,4 +11,3 @@ repos:
         entry: ./.trellis/scripts/verify.sh
         language: system
         pass_filenames: false
-

@@ -23,4 +23,3 @@ record = {
 pathlib.Path(path).open("a", encoding="utf-8").write(json.dumps(record, ensure_ascii=False) + "\n")
 PY
 echo "[agent-log] recorded ${action} (${status})"
-

@@ -8,4 +8,3 @@ export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 mise install
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 echo "[bootstrap/fedora] complete"
-

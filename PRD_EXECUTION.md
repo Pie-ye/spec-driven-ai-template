@@ -1,36 +1,57 @@
 # PRD_EXECUTION.md
 
-## Goal
+## Source of truth
 
-This file defines the execution rules for every PRD in this repository. The active PRD is authoritative for scope, acceptance criteria, non-goals, constraints, and verification requirements.
+The active canonical PRD under `.trellis/prds/` defines scope, acceptance criteria, non-goals, constraints, dependencies, and evidence requirements. Product context belongs in `.trellis/specs/`; research is not a substitute for a decision or PRD.
 
 ## Lifecycle
 
-`draft → ready → in_progress → implemented → verified → reviewed → merged → archived`
+`Draft → Ready → In Progress → Implemented → Verified → Reviewed → Merged → Archived`
 
-`task.json` should use one of these states. A PRD is `ready` only when it has background, goal, scope, non-goals, acceptance criteria, constraints, dependencies, and verification notes.
+Only one PRD is active on a branch. A new need discovered during implementation becomes a follow-up PRD unless it blocks the current acceptance criteria.
 
 ## Branching
 
-One PRD maps to one branch. Use names such as:
+Use `prd/PRD-001-slug`, `fix/PRD-001-slug`, or `refactor/PRD-001-slug`. Create a PRD branch from updated `main` with:
 
-- `prd/PRD-042-session-expiry`
-- `fix/PRD-043-refresh-race`
-- `refactor/PRD-044-auth-boundary`
+```bash
+./scripts/create-prd-branch.sh PRD-001 slug
+```
 
-## Commit policy
+The helper requires a clean tree, uses fast-forward-only update, and never resets, deletes, force-pushes, or merges.
 
-Use focused checkpoint commits, for example `test(PRD-042): add coverage`, `feat(PRD-042): implement core change`, and `fix(PRD-042): address edge case`.
+## Task contract
 
-## Verification
+The root `mise.toml` exposes:
 
-The default command is `./.trellis/scripts/verify.sh`. It delegates to commands exposed by the application repository when their manifest exists.
+`doctor`, `setup`, `dev`, `format`, `format-check`, `lint`, `typecheck`, `test`, `build`, `verify`, and `clean`.
+
+The root dispatcher executes only explicitly enabled profiles/modules from `.template/profiles.toml`. Profile-native tools remain authoritative.
+
+## Execution gate
+
+Before editing, the primary agent must read root/module `AGENTS.md`, the complete PRD, applicable specs, and referenced research. It must inspect the repository, list intended files, implement narrowly, add/update tests, and run targeted checks.
+
+## Verification gate
+
+Local and CI use the same commands:
+
+```bash
+mise run doctor
+mise run setup
+mise run verify
+```
+
+`verify` must label profile/module results and fail on a required task failure. Missing optional tasks may be skipped explicitly.
 
 ## Review and merge gate
 
-The reviewer must map every acceptance criterion to evidence, identify out-of-scope changes and regression risks, and give an explicit verdict. Do not merge until the PRD is reviewed, verification passes, the working tree is clean, the final diff is scoped, and required CI checks pass.
+The independent reviewer must map every acceptance criterion to evidence and report test gaps, regressions, out-of-scope changes, security concerns, maintainability, and documentation gaps. Merge requires all criteria Pass, verify/CI success, `READY_TO_MERGE`, and a cleanly mergeable branch. No script or agent merges `main` automatically.
 
-## Spec distillation
+## Finish helper
 
-If implementation produces a reusable engineering rule, update the relevant file below `.trellis/spec/` before archiving the task.
+```bash
+./scripts/finish-prd.sh PRD-001
+```
 
+It validates the branch, runs `mise run verify`, checks the evidence table, and writes a review summary. It stops before merge.

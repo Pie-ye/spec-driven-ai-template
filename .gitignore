@@ -12,6 +12,8 @@ auth.json
 .pi/*.local.*
 .trellis/workspace/*/agent-log.jsonl
 !.trellis/workspace/*/.gitkeep
+.mise.local.toml
+mise.local.lock
 .DS_Store
 .idea/
 .vscode/
@@ -26,4 +28,3 @@ __pycache__/
 .pytest_cache/
 coverage/
 *.log
-

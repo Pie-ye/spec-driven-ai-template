@@ -24,4 +24,3 @@ jobs:
         run: git rev-parse "refs/tags/${TAG}"
       - name: Verify
         run: ./.trellis/scripts/verify.sh
-

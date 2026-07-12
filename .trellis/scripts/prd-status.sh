@@ -20,4 +20,3 @@ done < <(find "$root" -mindepth 2 -maxdepth 2 -name task.json -type f -print | s
 if [ "$found" -eq 0 ]; then
   echo "No task.json files found. Create one from .trellis/templates/."
 fi
-

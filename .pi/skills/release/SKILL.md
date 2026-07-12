@@ -14,4 +14,3 @@ Do not create tags, publish packages, or deploy without explicit authorization. 
 # Output
 
 Return readiness, release-note draft, outstanding items, and `READY` or `BLOCKED`.
-

@@ -14,4 +14,3 @@ if ! command -v pi >/dev/null 2>&1 && command -v npm >/dev/null 2>&1; then
   npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 fi
 echo "[bootstrap/ubuntu] complete"
-

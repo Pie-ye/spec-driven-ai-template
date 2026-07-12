@@ -1,18 +1,49 @@
 [tools]
-node = "22"
-python = "3.12"
-go = "1.24"
-pnpm = "10"
+# Core-only tools. Language and SDK versions live in enabled profiles.
+shellcheck = "0.10.0"
+shfmt = "3.10.0"
 
 [env]
-PROJECT_VERIFY = "./.trellis/scripts/verify.sh"
+PROJECT_VERIFY = "./scripts/verify.sh"
+
+[settings]
+lockfile = true
 
 [tasks.verify]
-run = "./.trellis/scripts/verify.sh"
+run = "./scripts/verify.sh"
 
-[tasks.test]
-run = "pnpm test"
+[tasks.doctor]
+run = "./scripts/doctor.sh"
+
+[tasks.setup]
+run = "./scripts/setup.sh"
+
+[tasks.dev]
+run = "./scripts/run-task.sh dev"
+
+[tasks.format]
+run = "./scripts/run-task.sh format"
+
+[tasks."format-check"]
+run = "./scripts/run-task.sh format-check"
 
 [tasks.lint]
-run = "pnpm lint"
+run = "./scripts/run-task.sh lint"
 
+[tasks.typecheck]
+run = "./scripts/run-task.sh typecheck"
+
+[tasks.test]
+run = "./scripts/run-task.sh test"
+
+[tasks.build]
+run = "./scripts/run-task.sh build"
+
+[tasks.clean]
+run = "./scripts/run-task.sh clean"
+
+[tasks."profile:list"]
+run = "./scripts/list-profiles.sh"
+
+[tasks."profile:enable"]
+run = "./scripts/enable-profile.sh"

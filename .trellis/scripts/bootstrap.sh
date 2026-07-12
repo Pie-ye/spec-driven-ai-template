@@ -8,24 +8,22 @@ if [ "${SKIP_SYSTEM_PACKAGES:-0}" = "1" ]; then
   echo "[bootstrap] skipping system packages (SKIP_SYSTEM_PACKAGES=1)"
 else
   case "$(uname -s)" in
-    Linux)
-      if [ -f /etc/os-release ]; then
-        . /etc/os-release
-        case "${ID:-}" in
-          ubuntu|debian) exec "$repo_root/ops/bootstrap/ubuntu.sh" ;;
-          arch) exec "$repo_root/ops/bootstrap/arch.sh" ;;
-          fedora) exec "$repo_root/ops/bootstrap/fedora.sh" ;;
-        esac
-      fi
-      ;;
-    *) echo "[bootstrap] OS package setup is documented for Linux; continuing" ;;
+  Linux)
+    if [ -f /etc/os-release ]; then
+      . /etc/os-release
+      case "${ID:-}" in
+      ubuntu | debian) exec "$repo_root/ops/bootstrap/ubuntu.sh" ;;
+      arch) exec "$repo_root/ops/bootstrap/arch.sh" ;;
+      fedora) exec "$repo_root/ops/bootstrap/fedora.sh" ;;
+      esac
+    fi
+    ;;
+  *) echo "[bootstrap] OS package setup is documented for Linux; continuing" ;;
   esac
 fi
 
-if command -v mise >/dev/null 2>&1; then
-  mise install
-else
-  echo "[bootstrap] mise is not installed; install it or set SKIP_SYSTEM_PACKAGES=1"
+if ! command -v mise >/dev/null 2>&1; then
+  echo "[bootstrap] mise is not installed; install mise before running mise run setup"
 fi
 
 if command -v pi >/dev/null 2>&1; then
@@ -35,4 +33,3 @@ else
 fi
 
 echo "[bootstrap] repository ready: $repo_root"
-

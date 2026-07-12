@@ -14,4 +14,3 @@ Read the active PRD, changed files, tests, config, migrations, and environment u
 # Output
 
 Report findings with severity, file, evidence, recommendation, and confidence; then review secrets, auth, input, filesystem, shell, and network boundaries. End with `NO_BLOCKING_SECURITY_ISSUES` or `BLOCKING_SECURITY_ISSUES`.
-

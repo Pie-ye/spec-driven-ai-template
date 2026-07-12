@@ -12,4 +12,3 @@
 ## Validation commands
 
 List exact commands and expected results.
-
