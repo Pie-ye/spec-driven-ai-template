@@ -2,7 +2,7 @@
   "enabled": true,
   "filesystem": {
     "read_only": ["/usr", "/bin", "/lib", "/lib64", "/etc/ssl/certs"],
-    "read_write": [".", "./.trellis", "./.pi", "/tmp"],
+    "read_write": [".", "./.trellis", "./.pi", "./.trellis/runs", "/tmp"],
     "deny": ["~/.ssh", "~/.gnupg", "~/.aws", "~/.config/gcloud", "~/.config/ai", "~/.pi/agent/auth.json"]
   },
   "network": {
@@ -10,6 +10,6 @@
     "deny_all_others": true
   },
   "process": {
-    "allow": ["git *", "pnpm *", "npm *", "python *", "pytest *", "go *", "bash ./.trellis/scripts/verify.sh"]
+    "allow": ["git *", "node scripts/orchestrator.mjs *", "pnpm *", "npm *", "python *", "pytest *", "go *", "bash ./.trellis/scripts/verify.sh"]
   }
 }
