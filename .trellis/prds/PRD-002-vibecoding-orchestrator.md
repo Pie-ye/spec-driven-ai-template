@@ -4,7 +4,7 @@
 |---|---|
 | ID | PRD-002 |
 | Priority | P0 |
-| Status | Draft |
+| Status | Ready |
 | Branch | `prd/PRD-002-vibecoding-orchestrator` |
 | Dependencies | PRD-001 cross-language framework foundation |
 | Merge target | `main` |
@@ -171,6 +171,10 @@ Gate 必須是持久化狀態，不可只存在對話記憶。至少包含：
 
 未批准時，Pi 可以繼續唯讀探索與產生建議，但不可進入被 gate 阻擋的寫入或外部狀態變更。
 
+### Confirmed approval policy
+
+Pi may automatically run repository discovery, planning, tests, diagnostics, and commands inside the approved repository sandbox. Pi must pause for Spec/PRD scope approval, high-risk external or destructive actions, migrations, secrets-boundary changes, final diff/evidence approval, and merge/deploy approval.
+
 ## 7. Non-goals
 
 - 不建立新的產品業務功能。
@@ -262,6 +266,6 @@ At least one fixture each for Python, Web, Kotlin, C, and Qt/C++ contract discov
 | AC-013 | Pending | | |
 | AC-014 | Pending | | |
 
-## 12. Open decision
+## 12. Planning status
 
-The only remaining product decision before design is the default approval policy for autonomous execution. Recommended default: Pi runs read-only discovery, planning, tests, diagnostics, and commands inside the approved repository sandbox automatically; it pauses for Spec/PRD scope approval, high-risk external/destructive actions, final diff approval, and merge/deploy approval.
+Approval policy is confirmed by the user. The next step is technical design and implementation planning; no Pi engine code is included in this PRD draft.
