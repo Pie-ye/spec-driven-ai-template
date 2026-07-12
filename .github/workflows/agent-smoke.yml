@@ -9,7 +9,6 @@ permissions:
 
 jobs:
   pi-headless-smoke:
-    if: ${{ secrets.OPENAI_API_KEY != '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -21,12 +20,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install Pi
-        run: npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-      - name: Read-only policy smoke test
+      - name: Optional read-only policy smoke test
         run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo 'OPENAI_API_KEY is not configured; skipping optional agent smoke test'
+            exit 0
+          fi
+          npm install -g --ignore-scripts @earendil-works/pi-coding-agent
           pi -p 'Read AGENTS.md and PRD_EXECUTION.md. Summarize the branch, PRD, verification, and review rules in 10 bullets. Do not edit files.' \
             --provider openai --model 'openai/gpt-5' > /tmp/pi-smoke.txt
           test -s /tmp/pi-smoke.txt
           grep -E 'PRD|branch|verify|review' /tmp/pi-smoke.txt
-
