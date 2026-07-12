@@ -1,0 +1,27 @@
+name: PRD request
+description: Propose a scoped, evidence-driven product requirement
+title: "PRD: "
+body:
+  - type: markdown
+    attributes:
+      value: "Create a Spec or PRD before implementation."
+  - type: input
+    id: priority
+    attributes:
+      label: Priority
+      placeholder: P0 / P1 / P2
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: "- [ ] AC-001: ..."
+    validations:
+      required: true

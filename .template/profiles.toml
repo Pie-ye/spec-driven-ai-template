@@ -1,0 +1,22 @@
+# Explicit project capabilities. File detection may suggest profiles, but never enables one.
+enabled = []
+
+[profiles.python]
+required_tasks = ["doctor", "setup", "format", "format-check", "lint", "typecheck", "test", "build", "verify"]
+
+[profiles.web]
+required_tasks = ["doctor", "setup", "format", "format-check", "lint", "typecheck", "test", "build", "verify"]
+
+[profiles.kotlin]
+required_tasks = ["doctor", "setup", "format", "format-check", "lint", "typecheck", "test", "build", "verify"]
+
+[profiles.qt-cpp]
+required_tasks = ["doctor", "setup", "format", "format-check", "lint", "typecheck", "test", "build", "verify"]
+
+[profiles.c]
+required_tasks = ["doctor", "setup", "format", "format-check", "lint", "typecheck", "test", "build", "verify"]
+
+# Monorepo modules are opt-in. Example:
+# [modules.backend]
+# path = "services/backend"
+# profile = "python"

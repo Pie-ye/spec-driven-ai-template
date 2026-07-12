@@ -1,0 +1,5 @@
+[tools]
+cmake = "3.31"
+ninja = "1.12"
+clang-format = "19"
+clang-tidy = "19"

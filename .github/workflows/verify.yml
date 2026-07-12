@@ -4,47 +4,38 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  verify-ubuntu:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        if: ${{ hashFiles('package.json') != '' }}
+      - name: Install mise
+        uses: jdx/mise-action@v2
         with:
-          node-version: 22
-      - uses: actions/setup-python@v5
-        if: ${{ hashFiles('pyproject.toml') != '' }}
+          version: 2025.12.12
+          install: true
+          cache: true
+      - name: Install locked core tools
+        run: mise install --locked
+      - name: Doctor
+        run: mise run doctor
+      - name: Setup enabled profiles
+        run: mise run setup
+      - name: Verify through the project contract
+        run: mise run verify
+      - name: Upload test reports when present
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
         with:
-          python-version: '3.12'
-      - name: Install pnpm
-        if: ${{ hashFiles('package.json') != '' }}
-        run: npm install -g pnpm@10
-      - name: Install dependencies
-        run: |
-          if [ -f package.json ]; then pnpm install --frozen-lockfile || pnpm install; fi
-          if [ -f pyproject.toml ]; then python -m pip install -U pip pytest; fi
-      - name: Verify
-        run: ./.trellis/scripts/verify.sh
-
-  verify-arch-container:
-    runs-on: ubuntu-latest
-    container: archlinux:latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install base toolchain
-        run: |
-          pacman -Syu --noconfirm
-          pacman -S --noconfirm --needed git nodejs npm python go
-      - name: Install dependencies
-        run: |
-          if [ -f package.json ]; then npm install -g pnpm@10; pnpm install; fi
-          if [ -f pyproject.toml ]; then python -m ensurepip --upgrade || true; python -m pip install -U pip pytest; fi
-      - name: Verify
-        run: ./.trellis/scripts/verify.sh
+          name: test-reports
+          path: |
+            **/test-results/**
+            **/reports/**
+            **/coverage/**
+          if-no-files-found: ignore

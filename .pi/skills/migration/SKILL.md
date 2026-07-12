@@ -14,4 +14,3 @@ Document ordering, backup, lock/transaction behavior, dry run, idempotency, forw
 # Output
 
 Return migration summary, ordered steps, validation, rollback, and operator notes.
-

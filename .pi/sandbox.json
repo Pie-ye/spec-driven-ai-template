@@ -13,4 +13,3 @@
     "allow": ["git *", "pnpm *", "npm *", "python *", "pytest *", "go *", "bash ./.trellis/scripts/verify.sh"]
   }
 }
-

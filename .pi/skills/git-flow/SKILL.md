@@ -14,4 +14,3 @@ Use focused, traceable commits. Before review run `git status --short`, inspect 
 # Rules
 
 Do not merge or force-push automatically. Never include secrets. Report branch, base, changed files, policy violations, and recommendation.
-

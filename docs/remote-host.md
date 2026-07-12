@@ -27,4 +27,3 @@ tmux new -A -s your-repo
 ```
 
 For high-risk automation, run Pi in `ops/docker-compose.pi.yml` with the container-local `pi-agent-home` volume. Do not bind-mount the host `~/.pi/agent`, because it may contain credentials and unrelated sessions.
-

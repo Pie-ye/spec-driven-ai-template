@@ -1,2 +1,1 @@
-Read `AGENTS.md`, `PRD_EXECUTION.md`, the active task `prd.md`, and relevant spec indexes. Summarize the goal, non-goals, acceptance criteria, intended files, and verification commands. Do not edit files until the scope is explicit.
-
+Read root `AGENTS.md`, all affected module/profile `AGENTS.md` files, the complete canonical PRD under `.trellis/prds/`, and relevant `.trellis/specs/` documents. Summarize the goal, non-goals, acceptance criteria, intended files, and `mise` verification commands. Do not edit files until the scope is explicit.

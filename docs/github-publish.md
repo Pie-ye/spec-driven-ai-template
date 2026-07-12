@@ -14,4 +14,3 @@ git push -u origin main
 5. Add `OPENAI_API_KEY` only if the optional `agent-smoke` workflow is wanted.
 
 After publishing, a new host only needs Git, the OS prerequisites, and SSH access to clone and run the bootstrap script. Replace `YOUR_ORG` in this document and `README.md` before publishing a public template.
-
